@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/main.css">
-    <script src="./src/index.js"> defer</script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
     <title>Pizzas</title>
 </head>
 <body>
@@ -13,24 +15,22 @@
         <h2>Pizza@Yale</h2>
     </header>    
     <nav>
-        <ul>
-            <li>Pizza 1</li>
-            <li>Pizza 2</li>
-            <li>Pizza 3</li>
-            <li>Pizza 4</li>
-            <li>Pizza 5</li>
+        <ul class='pizza-type-box'>
+            <li id="type-name"></li>
         </ul>
     </nav>
     <main>
         <img src="" alt="">
-        <h1>"pizza-name"</h1>
+        <h1 id="pizza-name"></h1>
+        
         <div class="info">
-            <h3>"restaurant-name"</h3>
-            <p>"pizza-description"</p>
-            <p>"pizza-price"</p>
-            <p>"pizza-rating"</p>
-            <p>"pizza-comment"</p>
+            <h3 id="restaurant-name"></h3>
+            <p id="pizza-description"></p>
+            <p id="pizza-price"></p>
+            <p id="pizza-rating"></p>
+            <p id="pizza-comment"></p>
     </main>
+    <script src="./src/index.js"> </script>
 </body>
 </html>
 

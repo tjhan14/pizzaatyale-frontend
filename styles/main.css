@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    /* margin: 0;
     padding: 0;
     display: grid; 
     grid-template-areas: 
@@ -8,20 +8,20 @@ body {
     grid-template-columns: 300px 1fr;
     grid-template-rows: 80px 1fr;
     row-gap: 10px;
-    column-gap: 15px;
+    column-gap: 15px; */
 }
 
 header {
-    grid-area: top;
-    border: 2px solid red;
+    /* grid-area: top;
+    border: 2px solid red; */
 }
 
 main {
-    grid-area: main;
-    border: 2px solid blue;
+    /* grid-area: main;
+    border: 2px solid blue; */
 }
 
 nav {
-    grid-area: nav;
+    /* grid-area: nav;
     border: 2px solid green;
-}
+} */
