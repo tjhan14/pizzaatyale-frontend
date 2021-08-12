@@ -106,7 +106,7 @@ function handleReviewSubmit(e, pizzaObj, ratingCommentDiv){
         })
     }
     e.target.reset()
-    //console.log(configObject)
+
     fetch('http://localhost:3000/api/v1/user_pizzas', configObject)
     .then(r => {
         console.log(r)
@@ -133,30 +133,52 @@ function renderOneUserPizza(user_pizza, ratingCommentDiv){
 
     // create button + event listender 
     const deleteButton = document.createElement("button")
-    deleteButton.addEventListener('click', e => deleteRatingComment(user_pizza, userPizzaDiv, deleteButton))
+    deleteButton.textContent = "Delete"
+    deleteButton.addEventListener('click', e => deleteRatingComment(user_pizza, userPizzaDiv))
 
-    userPizzaDiv.append(pizzaRating, pizzaComment) 
+    const editButton = document.createElement("button")
+    editButton.textContent = "Edit"
+    editButton.addEventListener('click', e => editRatingComment(user_pizza, userPizzaDiv))
+
+    userPizzaDiv.append(pizzaRating, pizzaComment, deleteButton, editButton) 
     ratingCommentDiv.append(userPizzaDiv)
 }
 
-function deleteRatingComment(e, user_pizza, userPizzaDiv){
-    console.log(target.parent)
-
-    const ratingDelete = e.target.parent[1].value
-
-    const commentDelete = e.target.parent[3].value
-
-    const configObject = {
-    fetch(`localhost:3000/api/v1/user_pizzas/${user_pizza.id}`
-        method: "DELETE",
-        headers: {
-            'Content-Type':'application/json',
-        }.
-        body: JSON.stringify
-    )}
+function deleteRatingComment(user_pizza, userPizzaDiv){
+    const configObject = {method: 'DELETE'}
+    fetch(`http://localhost:3000/api/v1/user_pizzas/${user_pizza.id}`, configObject)
     .then(r => r.json())
-    //.then(redietc to the original page?)
-}
+    .then(response => userPizzaDiv.remove())
+ }
+
+ function editRatingComment(user_pizza, userPizzaDiv){
+    userPizzaDiv.innerHTML = ""
+    
+    const editForm = document.createElement("form")
+ 
+    const editRatingLabel = document.createElement("label")
+    editRatinglabel.htmlFor = "rating"
+    editRatingLabel.textContent = "Rating: "
+    
+    const editRatingInput = document.createElement("input")
+    editRatingInput.name = "rating"
+    editRatingInput.value = user_pizza.rating
+ 
+    const editCommentLabel = document.createElement("label")
+    editCommentLabel.htmlFor = "comment"
+    editCommentLabel.textContent = "Comment: "
+ 
+    const editCommentInput = document.createElement("input")
+    editCommentInput.name = "comment"
+    editCommentInput.value = user_pizza.comment
+ 
+    const editSubmit = document.createElement("input")
+    
+    editForm.append(editRatingLabel, editRatingInput, editCommentLabel, editCommentInput, editSubmit)
+    editForm.addEventListener("submit", handleEditSubmission(e, user_pizza, userPizzaDiv))
+ 
+    userPizzaDiv.append(editForm)
+ }
 
 function handleTypeClick(type) {
     console.log(type)
@@ -170,8 +192,6 @@ const renderType = type => {
     li.addEventListener('click', e => handleTypeClick(type)) 
     typeName.append(li)
 }
-
-
 
 /* Fatch Functions */ 
 
