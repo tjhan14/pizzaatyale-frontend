@@ -157,7 +157,7 @@ function deleteRatingComment(user_pizza, userPizzaDiv){
     const editForm = document.createElement("form")
  
     const editRatingLabel = document.createElement("label")
-    editRatinglabel.htmlFor = "rating"
+    editRatingLabel.htmlFor = "rating"
     editRatingLabel.textContent = "Rating: "
     
     const editRatingInput = document.createElement("input")
@@ -173,12 +173,33 @@ function deleteRatingComment(user_pizza, userPizzaDiv){
     editCommentInput.value = user_pizza.comment
  
     const editSubmit = document.createElement("input")
+    editSubmit.value = "Submit Edit"
+    editSubmit.type = "submit"
     
     editForm.append(editRatingLabel, editRatingInput, editCommentLabel, editCommentInput, editSubmit)
-    editForm.addEventListener("submit", handleEditSubmission(e, user_pizza, userPizzaDiv))
- 
+    editForm.addEventListener("submit", (e) => handleEditSubmission(e, user_pizza, userPizzaDiv))
+
     userPizzaDiv.append(editForm)
  }
+
+async function handleEditSubmission(e, user_pizza, userPizzaDiv){
+    console.log(e, user_pizza, userPizzaDiv)
+    e.preventDefault()
+    rating = e.target[0].value
+    comment = e.target[1].value 
+    const url = `http://localhost:3000/api/v1/user_pizzas/${user_pizza.id}`
+    const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({rating: rating, comment: comment})
+      });
+    console.log(response)
+    const userPizzaObj = await response.json()
+    console.log(userPizzaObj)
+    e.target.remove()
+    }
 
 function handleTypeClick(type) {
     console.log(type)
